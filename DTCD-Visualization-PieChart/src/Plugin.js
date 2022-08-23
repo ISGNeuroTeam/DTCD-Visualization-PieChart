@@ -210,7 +210,7 @@ export class VisualizationText extends PanelPlugin {
           component: 'switch',
           propName: 'isShowLegend',
           attrs: {
-            label: 'Скрыть/отобразвить вкладки',
+            label: 'Скрыть/отобразвить легенду',
             propValue: true,
           },
         },
