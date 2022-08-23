@@ -28,7 +28,10 @@
       <div
         v-show="!dataLoading && !!dataset.length"
         class="piechart-legend-block"
-        :style="{ flexFlow: positionLegends }"
+        :style="{
+          flexFlow: positionLegends,
+           height: title ? 'calc(100% - 40px)' : '100%'
+        }"
       >
         <div
           ref="piechartItself"
@@ -237,8 +240,6 @@ export default {
       const MARGIN = 40; // отступ от контейнера
       let width = this.panelSize.width - MARGIN; // отступ по бокам
       let height = this.panelSize.height - MARGIN - 3; // минус шапка
-
-      console.log('this.positionLegend', this.positionLegend)
      if (this.isShowLegend) {
        switch (this.positionLegend) {
          case 'right':
@@ -413,6 +414,9 @@ export default {
     line-height: 18px;
     padding: 10px;
   }
+  .piechart-block {
+    height: 100%;
+  }
   .piechart-legend-block {
     display: flex;
     justify-content: flex-start;
@@ -433,13 +437,16 @@ export default {
     .legend-block-pie {
       display: flex;
       &__vertically {
-        flex-flow: column wrap;
+        flex-flow: row wrap;
         justify-content: flex-start;
+        height: 100%;
+        writing-mode: vertical-lr;
       }
       &__horizontally {
         flex-wrap: wrap;
       }
       .legend-line {
+        writing-mode: lr;
         display: flex;
         flex-flow: row nowrap;
         padding: 5px;
