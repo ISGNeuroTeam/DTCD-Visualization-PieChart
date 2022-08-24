@@ -127,10 +127,12 @@ export default {
     positionLegend: {
       handler(val, old) {
         if (val && val !== old && this.isShowLegend) {
-          const calculatedSize = this.calculatedSize(this.legendSize())
-          if ( this.piechart?.size) {
-            this.piechart.size = calculatedSize;
-          }
+         this.$nextTick(() => {
+           const calculatedSize = this.calculatedSize(this.legendSize())
+           if ( this.piechart?.size) {
+             this.piechart.size = calculatedSize;
+           }
+         })
         }
       },
       deep: true,
@@ -207,9 +209,6 @@ export default {
 
     setColLineValue(key="label"){
       this.label=key;
-      if (this.dataset.length>0) {
-
-      }
     },
     setDataset(data = []) {
       this.dataset = data;

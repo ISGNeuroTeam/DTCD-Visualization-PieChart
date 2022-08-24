@@ -39,6 +39,8 @@ export class VisualizationText extends PanelPlugin {
   constructor(guid, selector) {
     super();
 
+    this.test('test')
+
     this.#id = `${pluginMeta.name}[${guid}]`;
     this.#guid = guid;
     this.#logSystem = new LogSystemAdapter('0.5.0', guid, pluginMeta.name);
@@ -219,7 +221,8 @@ export class VisualizationText extends PanelPlugin {
           propName: 'positionLegend',
           attrs: {
             label: 'Позиция легенды',
-            propValue: '',
+            propValue: { value: 'right', label: 'Справа' },
+            required: true,
           },
           options: [
             { value: 'left', label: 'Слева' },
