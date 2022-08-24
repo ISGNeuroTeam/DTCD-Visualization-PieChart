@@ -39,8 +39,6 @@ export class VisualizationText extends PanelPlugin {
   constructor(guid, selector) {
     super();
 
-    this.test('test')
-
     this.#id = `${pluginMeta.name}[${guid}]`;
     this.#guid = guid;
     this.#logSystem = new LogSystemAdapter('0.5.0', guid, pluginMeta.name);
