@@ -127,12 +127,14 @@ export default {
     positionLegend: {
       handler(val, old) {
         if (val && val !== old && this.isShowLegend) {
-         this.$nextTick(() => {
            const calculatedSize = this.calculatedSize(this.legendSize())
-           if ( this.piechart?.size) {
+           if (
+             this.piechart?.size
+             && calculatedSize.height > 0
+             && calculatedSize.width > 0
+           ) {
              this.piechart.size = calculatedSize;
            }
-         })
         }
       },
       deep: true,
