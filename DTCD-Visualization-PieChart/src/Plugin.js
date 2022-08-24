@@ -23,13 +23,12 @@ export class VisualizationText extends PanelPlugin {
   #vueComponent;
 
   #config = {
-    title: '',
-    targetName: 'План',
+    ...this.defaultConfig,
     colValue: 'count',
-    label: 'label',
+    colLineLabel: 'label',
     dataSource: '',
     isShowLegend: true,
-    positionLegend: '',
+    legendPosition: '',
   };
 
   static getRegistrationMeta() {
@@ -59,7 +58,11 @@ export class VisualizationText extends PanelPlugin {
       render: h => h(PluginComponent),
     }).$mount(selector);
 
+
     this.#vueComponent = view.$children[0];
+
+    this.setResizeObserver(this.#vueComponent.$el, this.#vueComponent.setPanelSize)
+
 
     this.setColorPallet()
 
@@ -93,6 +96,15 @@ export class VisualizationText extends PanelPlugin {
     this.loadData(data);
   }
 
+  setVueComponentPropValue(prop, value) {
+    const methodName = `set${prop.charAt(0).toUpperCase() + prop.slice(1)}`;
+    if (this.#vueComponent[methodName]) {
+      this.#vueComponent[methodName](value)
+    } else {
+      throw new Error(`В компоненте отсутствует метод ${methodName} для присвоения свойства ${prop}`)
+    }
+  }
+
   setPluginConfig(config = {}) {
     this.#logSystem.debug(`Set new config to ${this.#id}`);
     this.#logSystem.info(`Set new config to ${this.#id}`);
@@ -102,19 +114,9 @@ export class VisualizationText extends PanelPlugin {
     for (const [prop, value] of Object.entries(config)) {
       if (!configProps.includes(prop)) continue;
 
-      if (prop === 'isShowLegend') {
-        this.#vueComponent.setIsShowLegend(value);
-      }
-      if (prop === 'positionLegend') {
-        this.#vueComponent.setLegendPosition(value);
-      }
-
-      if (prop === 'title') this.#vueComponent.setTitle(value);
-      if (prop === 'colValue') this.#vueComponent.setColValue(value);
-      if (prop === 'label') this.#vueComponent.setColLineValue(value);
-
-
-      if (prop === 'dataSource' && value) {
+      if (prop !== 'dataSource') {
+        this.setVueComponentPropValue(prop, value)
+      } else if (value) {
         if (this.#config[prop]) {
           this.#logSystem.debug(
             `Unsubscribing ${this.#id} from DataSourceStatusUpdate({ dataSource: ${this.#config[prop]}, status: success })`
@@ -183,13 +185,7 @@ export class VisualizationText extends PanelPlugin {
             required: true,
           },
         },
-        {
-          component: 'text',
-          propName: 'title',
-          attrs: {
-            label: 'Заголовок',
-          },
-        },
+        ...this.defaultFields,
         {
           component: 'text',
           propName: 'colValue',
@@ -200,7 +196,7 @@ export class VisualizationText extends PanelPlugin {
         },
         {
           component: 'text',
-          propName: 'label',
+          propName: 'colLineLabel',
           attrs: {
             label: 'Имя колонки c подписью',
             propValue: 'label',
@@ -216,7 +212,7 @@ export class VisualizationText extends PanelPlugin {
         },
         {
           component: 'select',
-          propName: 'positionLegend',
+          propName: 'legendPosition',
           attrs: {
             label: 'Позиция легенды',
             propValue: { value: 'right', label: 'Справа' },
