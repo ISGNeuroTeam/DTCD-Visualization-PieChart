@@ -382,6 +382,8 @@ export default {
         colors: this.pallet,
         isDonat: this.isDonat,
       });
+
+      piechart.onClickPiePart = this.$root.publishEventClicked;
       this.piechart = Object.freeze(piechart);
     },
   },

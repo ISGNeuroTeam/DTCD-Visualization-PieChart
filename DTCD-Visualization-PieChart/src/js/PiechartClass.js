@@ -10,6 +10,8 @@ export default class PiechartClass {
     elemForLegend: '',
   }
 
+  onClickPiePart
+
   constructor({
     elem,
     elemForLegend,
@@ -83,7 +85,15 @@ export default class PiechartClass {
         return this.colors(d.data[0])
       })
       .attr('stroke', 'inherit')
-      .style('stroke-width', '2px');
+      .style('stroke-width', '2px')
+      .on('click', (event, d) => {
+        if (typeof this.onClickPiePart === 'function') {
+          this.onClickPiePart({
+            label: d.data[0],
+            value: d.data[1],
+          });
+        }
+      });
   }
 
   get size() {
