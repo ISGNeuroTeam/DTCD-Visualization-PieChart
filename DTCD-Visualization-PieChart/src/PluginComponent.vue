@@ -174,10 +174,6 @@ export default {
       width: rect.width,
       height: rect.height,
     }
-    this.sizeObserver()
-  },
-  beforeDestroy() {
-    this.resizeObserver.unobserve(this.$refs.VisualizationPieChart);
   },
   methods: {
     setLegendPosition(value) {
@@ -188,18 +184,8 @@ export default {
     setIsShowLegend(value = true) {
       this.isShowLegend = typeof value === 'boolean' ? value : true;
     },
-    sizeObserver() {
-      const panel = this.$refs.VisualizationPieChart
-
-      this.resizeObserver = new ResizeObserver((entries) => {
-        const {height, width} =entries[0].contentRect
-        this.panelSize = {
-          height,
-          width,
-        }
-      });
-
-      this.resizeObserver.observe(panel);
+    setPanelSize(panelSize) {
+      this.panelSize = panelSize
     },
     setTitle(text = '') {
       this.title = text;
@@ -209,7 +195,7 @@ export default {
       this.colValue = key;
     },
 
-    setColLineValue(key="label"){
+    setColLineLabel(key="label"){
       this.label=key;
     },
     setDataset(data = []) {
