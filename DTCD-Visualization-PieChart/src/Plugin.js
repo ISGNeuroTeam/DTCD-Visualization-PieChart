@@ -8,9 +8,9 @@ import {
   DataSourceSystemAdapter,
   StorageSystemAdapter,
   StyleSystemAdapter,
-} from './../../DTCD-SDK';
+} from '../../DTCD-SDK';
 
-export class VisualizationText extends PanelPlugin {
+export class VisualizationPieChart extends PanelPlugin {
 
   #id;
   #guid;
@@ -21,6 +21,9 @@ export class VisualizationText extends PanelPlugin {
   #dataSourceSystemGUID;
   #styleSystem;
   #vueComponent;
+  #vue
+  #lastVisible
+  #selector
 
   #config = {
     ...this.defaultConfig,
@@ -51,9 +54,29 @@ export class VisualizationText extends PanelPlugin {
       this.getSystem('DataSourceSystem', '0.2.0')
     );
 
+
+    this.#selector = selector;
+
+
+    this.#lastVisible = true
+
+    this.createVueInstance()
+
+
+    this.#logSystem.debug(`${this.#id} initialization complete`);
+    this.#logSystem.info(`${this.#id} initialization complete`);
+
+  }
+
+  createVueInstance() {
+    console.log('createVueInstance');
+    console.log('#panel-Visualization_PieChart_1', document.querySelector('#panel-Visualization_PieChart_1'));
     const { default: VueJS } = this.getDependence('Vue');
 
-    const view = new VueJS({
+    const selector = this.#selector
+
+    this.#vue = new VueJS({
+      el: selector,
       data: () => ({}),
       render: h => h(PluginComponent),
       methods: {
@@ -61,19 +84,32 @@ export class VisualizationText extends PanelPlugin {
           this.#eventSystem.publishEvent('Clicked', value);
         }
       },
-    }).$mount(selector);
+    })
 
-
-    this.#vueComponent = view.$children[0];
-
-    this.setResizeObserver(this.#vueComponent.$el, this.#vueComponent.setPanelSize)
-
+    this.#vueComponent = this.#vue.$children[0];
 
     this.setColorPallet()
 
-    this.#logSystem.debug(`${this.#id} initialization complete`);
-    this.#logSystem.info(`${this.#id} initialization complete`);
+    this.setPluginConfig(this.#config)
 
+    this.setResizeObserver(this.#vueComponent.$el, this.#vueComponent.setPanelSize)
+
+  }
+
+  beforeUninstall() {
+    this.removeResizeObserver()
+    this.#vue.$destroy();
+    const newRootElement = document.createElement(`div`);
+    newRootElement.id = this.#selector.replace('#', '')
+    this.#vue.$el.parentElement.appendChild(newRootElement)
+    this.#vue.$el.parentNode.removeChild(this.#vue.$el);
+  }
+
+  setVisible(isVisible) {
+    if (this.#lastVisible !== isVisible) {
+      isVisible ? this.createVueInstance() : this.beforeUninstall();
+      this.#lastVisible = isVisible;
+    }
   }
 
   setColorPallet() {
@@ -118,7 +154,6 @@ export class VisualizationText extends PanelPlugin {
 
     for (const [prop, value] of Object.entries(config)) {
       if (!configProps.includes(prop)) continue;
-
       if (prop !== 'dataSource') {
         this.setVueComponentPropValue(prop, value)
       } else if (value) {
