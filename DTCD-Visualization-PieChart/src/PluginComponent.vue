@@ -344,7 +344,6 @@ export default {
       sizeLine,
       legendSize,
     ) {
-
       // создает диаграмму
       if (this.piechart) {
         this.piechart.removePiechart();
