@@ -69,8 +69,6 @@ export class VisualizationPieChart extends PanelPlugin {
   }
 
   createVueInstance() {
-    console.log('createVueInstance');
-    console.log('#panel-Visualization_PieChart_1', document.querySelector('#panel-Visualization_PieChart_1'));
     const { default: VueJS } = this.getDependence('Vue');
 
     const selector = this.#selector
