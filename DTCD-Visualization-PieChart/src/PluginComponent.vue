@@ -56,7 +56,6 @@
             />
             <div
               class="text"
-              :style="{ color: '#000000' }"
             >
               {{ item.label }}
             </div>
@@ -452,6 +451,7 @@ export default {
           font-weight: 400;
           font-size: 13px;
           white-space: nowrap;
+          color: var(--title);
         }
       }
       .legend-line_hover {
