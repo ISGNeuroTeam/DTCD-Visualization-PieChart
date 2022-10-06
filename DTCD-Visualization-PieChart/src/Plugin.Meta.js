@@ -4,6 +4,6 @@ export default {
   version,
   type: 'panel',
   name: 'Visualization_PieChart',
-  title: 'Визуализация - Круговая диграмма',
+  title: 'Визуализация - Круговая диаграмма',
   withDependencies: true,
 };
