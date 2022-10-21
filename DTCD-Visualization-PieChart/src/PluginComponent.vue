@@ -400,6 +400,7 @@ export default {
     font-size: 15px;
     line-height: 18px;
     padding: 10px;
+    color: var(--text_main);
   }
   .piechart-block {
     height: 100%;
