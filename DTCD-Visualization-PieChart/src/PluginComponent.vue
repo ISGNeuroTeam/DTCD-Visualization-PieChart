@@ -56,7 +56,6 @@
             />
             <div
               class="text"
-              :style="{ color: '#000000' }"
             >
               {{ item.label }}
             </div>
@@ -401,6 +400,7 @@ export default {
     font-size: 15px;
     line-height: 18px;
     padding: 10px;
+    color: var(--text_main);
   }
   .piechart-block {
     height: 100%;
@@ -452,6 +452,7 @@ export default {
           font-weight: 400;
           font-size: 13px;
           white-space: nowrap;
+          color: var(--title);
         }
       }
       .legend-line_hover {
