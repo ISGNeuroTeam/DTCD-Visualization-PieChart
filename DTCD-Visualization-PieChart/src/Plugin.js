@@ -268,12 +268,36 @@ export class VisualizationPieChart extends PanelPlugin {
   }
 
   getState() {
-    return this.getPluginConfig();
+    return Object.assign(
+      this.getPluginConfig(),
+      {
+        dataset: this.#vueComponent.dataset,
+        legends: this.#vueComponent.legends,
+        title: this.#vueComponent.title,
+        label: this.#vueComponent.label,
+        pallet: this.#vueComponent.pallet,
+        legends: this.#vueComponent.legends,
+      },
+    );
   }
 
   setState(newState) {
     if (typeof newState !== 'object' ) return;
 
     this.setPluginConfig(newState);
+
+    const vueNamesFields = [
+      'dataset',
+      'legends',
+      'title',
+      'label',
+      'pallet',
+      'legends',
+    ];
+
+    for (const [prop, value] of Object.entries(newState)) {
+      if (!vueNamesFields.includes(prop)) continue;
+      this.#vueComponent[prop] = value;
+    }
   }
 }
