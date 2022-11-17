@@ -73,26 +73,26 @@ export default {
   name: 'PieChart',
   data: () => ({
     dataset: [],
-      // message: 'Нет данных для отображения',
-      isShowLegend: true,
-      legends: [],
-      positionLegend:'left',
-      positionLegends: 'row nowrap',
-      piechart: null,
-      pieType: 'pie',
+    // message: 'Нет данных для отображения',
+    isShowLegend: true,
+    legends: [],
+    positionLegend:'left',
+    positionLegends: 'row nowrap',
+    piechart: null,
+    pieType: 'pie',
 
-      title: '',
-      colValue: 'count',
-      label: 'label',
-      pallet: [],
-      isDataError: false,
-      errorMessage:'',
-      resizeObserver: null,
-      panelSize: {
-        height:200,
-        width:200
-      },
-    }),
+    title: '',
+    colValue: 'count',
+    label: 'label',
+    pallet: [],
+    isDataError: false,
+    errorMessage:'',
+    resizeObserver: null,
+    panelSize: {
+      height:200,
+      width:200
+    },
+  }),
   computed: {
     validateData() {
 
@@ -126,14 +126,14 @@ export default {
     positionLegend: {
       handler(val, old) {
         if (val && val !== old && this.isShowLegend) {
-           const calculatedSize = this.calculatedSize(this.legendSize())
-           if (
-             this.piechart?.size
-             && calculatedSize.height > 0
-             && calculatedSize.width > 0
-           ) {
-             this.piechart.size = calculatedSize;
-           }
+          const calculatedSize = this.calculatedSize(this.legendSize())
+          if (
+            this.piechart?.size
+            && calculatedSize.height > 0
+            && calculatedSize.width > 0
+          ) {
+            this.piechart.size = calculatedSize;
+          }
         }
       },
       deep: true,
