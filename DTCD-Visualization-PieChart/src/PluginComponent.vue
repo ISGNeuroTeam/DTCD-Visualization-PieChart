@@ -285,7 +285,7 @@ export default {
             // показываем сообщение о некорректности данных
             this.legends = [];
             // выводим сообщение
-            const error = 'К сожалению данных слишком много для построения диаграммы';
+            const error = 'К сожалению, данных слишком много для построения диаграммы';
             this.setError(error, true);
             // и еще график очищаем, чтобы не мешался
             this.piechart.removePiechart();
@@ -314,7 +314,7 @@ export default {
           }
         } else {
           // если первое значение первого элемнета (подразумеваем что это time не число)
-          const error = 'К сожалению данные не подходят к диаграмме'; // выводим сообщение
+          const error = 'К сожалению, данные не подходят к диаграмме'; // выводим сообщение
           this.setError(error, true);
           this.legends = [];
           this.piechart?.removePiechart(); // и еще график очищаем, чтобы не мешался
@@ -402,6 +402,7 @@ export default {
     font-weight: 700;
     padding: 10px;
     color: var(--text_main);
+    line-height: 1.4;
   }
 
   .piechart-block {
