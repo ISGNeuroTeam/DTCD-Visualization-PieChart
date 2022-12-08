@@ -285,7 +285,7 @@ export default {
             // показываем сообщение о некорректности данных
             this.legends = [];
             // выводим сообщение
-            const error = 'К сожалению данных слишком много для построения диаграммы';
+            const error = 'К сожалению, данных слишком много для построения диаграммы';
             this.setError(error, true);
             // и еще график очищаем, чтобы не мешался
             this.piechart.removePiechart();
@@ -314,7 +314,7 @@ export default {
           }
         } else {
           // если первое значение первого элемнета (подразумеваем что это time не число)
-          const error = 'К сожалению данные не подходят к диаграмме'; // выводим сообщение
+          const error = 'К сожалению, данные не подходят к диаграмме'; // выводим сообщение
           this.setError(error, true);
           this.legends = [];
           this.piechart?.removePiechart(); // и еще график очищаем, чтобы не мешался
@@ -378,6 +378,7 @@ export default {
 .VisualizationPieChart {
   width: 100%;
   height: 100%;
+
   .DataError {
     position: absolute;
     display: flex;
@@ -395,16 +396,19 @@ export default {
       margin-bottom: 8px;
     }
   }
+
   .title {
-    font-weight: 600;
-    font-size: 15px;
-    line-height: 18px;
+    font-size: 18px;
+    font-weight: 700;
     padding: 10px;
     color: var(--text_main);
+    line-height: 1.4;
   }
+
   .piechart-block {
     height: 100%;
   }
+
   .piechart-legend-block {
     display: flex;
     justify-content: flex-start;
@@ -415,24 +419,30 @@ export default {
         transition: all 0.3s ease;
         cursor: pointer;
       }
+
       path {
         stroke: var(main_bg);
       }
+
       .piepartSelect {
         transform: scale(1.07);
       }
     }
+
     .legend-block-pie {
       display: flex;
+
       &__vertically {
         flex-flow: row wrap;
         justify-content: flex-start;
         height: 100%;
         writing-mode: vertical-lr;
       }
+
       &__horizontally {
         flex-wrap: wrap;
       }
+
       .legend-line {
         writing-mode: lr;
         display: flex;
@@ -441,12 +451,12 @@ export default {
         cursor: pointer;
         align-items: center;
 
-
         .square {
           width: 10px;
           height: 10px;
           margin-right: 10px;
         }
+
         .text {
           font-style: normal;
           font-weight: 400;
@@ -455,10 +465,12 @@ export default {
           color: var(--title);
         }
       }
+
       .legend-line_hover {
         background-color: var(secondary_bg);
         border-radius: 3px;
       }
+
       .legend-line_selected {
         padding: 4px;
         border: 1px solid var(main_text);
