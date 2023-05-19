@@ -1,3 +1,13 @@
+## [0.4.0]
+
+### Added
+
+- plugin state API
+
+### Changed
+
+- title size
+
 ## [0.3.0]
 
 ### Fixed
